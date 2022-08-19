@@ -14,6 +14,7 @@ extension UIViewController {
     
     static func instantiate() -> Self {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let name = "name"
         guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? Self else { fatalError("Could not instantiate view controller with storyboard ID: \(identifier)") }
         return viewController
     }
