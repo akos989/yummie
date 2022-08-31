@@ -7,6 +7,12 @@
 
 import Foundation
 
-struct DishCategory {
-    let id, name, image: String
+struct DishCategory: Codable {
+    let id, title, image: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title // = "name" -> should be used if the backend response has different key names (here: name is in the backend)
+        case image
+    }
 }

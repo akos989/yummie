@@ -15,7 +15,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet var categoryTitleLabel: UILabel!
     
     func setup(category: DishCategory) {
-        categoryTitleLabel.text = category.name
-        categoryImageView.kf.setImage(with: category.image.asUrl)
+        categoryTitleLabel.text = category.title
+        categoryImageView.kf.setImage(with: category.image?.asUrl)
     }
 }

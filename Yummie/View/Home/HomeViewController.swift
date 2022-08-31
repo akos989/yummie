@@ -5,6 +5,7 @@
 //  Created by Ákos Morvai on 2022. 08. 17..
 //
 
+import ProgressHUD
 import UIKit
 	
 class HomeViewController: UIViewController {
@@ -12,29 +13,30 @@ class HomeViewController: UIViewController {
     @IBOutlet var popularCollectionView: UICollectionView!
     @IBOutlet var specialsCollectionView: UICollectionView!
     
-    var categories: [DishCategory] = [
-        .init(id: "id1", name: "African Dish 1", image: "https://picsum.photos/100/200"),
-        .init(id: "id2", name: "African Dish 2", image: "https://picsum.photos/100/200"),
-        .init(id: "id3", name: "African Dish 3", image: "https://picsum.photos/100/200"),
-        .init(id: "id4", name: "African Dish 4", image: "https://picsum.photos/100/200"),
-        .init(id: "id5", name: "African Dish 5", image: "https://picsum.photos/100/200")
-    ]
-    
-    var popularDishes: [Dish] = [
-        .init(id: "id1", name: "Garri", description: "This is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food everThis is the best food ever", image: "https://picsum.photos/100/200", calories: 34),
-        .init(id: "id2", name: "Pizza", description: "This is the best food ever", image: "https://picsum.photos/100/200", calories: 314),
-        .init(id: "id3", name: "Lasagne", description: "This is the best food ever", image: "https://picsum.photos/100/200", calories: 134),
-        .init(id: "id4", name: "Cucumber", description: "This is the best food ever", image: "https://picsum.photos/100/200", calories: 4),
-        .init(id: "id5", name: "Rice", description: "This is the best food ever", image: "https://picsum.photos/100/200", calories: 56)
-    ]
-    
-    var specialDishes: [Dish] = [
-        .init(id: "id1", name: "Kefta", description: "Very good Moroccan meal", image: "https://picsum.photos/100/200", calories: 98),
-        .init(id: "id2", name: "Curry", description: "Traditional food in India", image: "https://picsum.photos/100/200", calories: 120)
-    ]
+    var categories = [DishCategory]()
+    var popularDishes = [Dish]()
+    var specialDishes = [Dish]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ProgressHUD.show()
+        NetworkService.shared.fetchAllCategories { [weak self] result in
+            switch result {
+                case .success(let allDishes):
+                    self?.categories = allDishes.categories ?? []
+                    self?.popularDishes = allDishes.populars ?? []
+                    self?.specialDishes = allDishes.specials ?? []
+                    
+                    self?.categoryCollectionView.reloadData()
+                    self?.popularCollectionView.reloadData()
+                    self?.specialsCollectionView.reloadData()
+                    
+                    ProgressHUD.dismiss()
+                case .failure(let error):
+                    ProgressHUD.showError(error.localizedDescription)
+            }
+        }
         
         specialsCollectionView.delegate = self
         specialsCollectionView.dataSource = self
@@ -87,7 +89,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
             case categoryCollectionView:
-                return
+                let controller = ListDishesTableViewController.instantiate()
+                controller.category = categories[indexPath.item]
+                navigationController?.pushViewController(controller, animated: true)
             case popularCollectionView:
                 displayDishDetails(of: popularDishes[indexPath.item])
             case specialsCollectionView:

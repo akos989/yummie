@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eC9-nf-ap6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -291,8 +291,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yummie" id="6U4-hZ-V6c">
+                        <barButtonItem key="backBarButtonItem" title=" " id="UYe-9R-cPT"/>
                         <barButtonItem key="rightBarButtonItem" image="cart.circle.fill" catalog="system" id="VKb-lQ-INK">
                             <color key="tintColor" red="0.88001066449999998" green="0.2267516255" blue="0.00139568653" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="Iou-P2-VAL" kind="show" id="bfx-o1-PZp"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -305,6 +309,26 @@
             </objects>
             <point key="canvasLocation" x="1934.7826086956522" y="114.50892857142857"/>
         </scene>
+        <!--List Orders Table View Controller-->
+        <scene sceneID="VxQ-SD-imG">
+            <objects>
+                <tableViewController storyboardIdentifier="ListOrdersTableViewController" id="Iou-P2-VAL" customClass="ListOrdersTableViewController" customModule="Yummie" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="a3F-Wj-WFz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Iou-P2-VAL" id="2ZL-tE-5XQ"/>
+                            <outlet property="delegate" destination="Iou-P2-VAL" id="lOI-iF-Nhy"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="qve-iK-QCx"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Jc-2y-S2s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1935" y="820"/>
+        </scene>
         <!--Dish Detail View Controller-->
         <scene sceneID="gwI-Ni-bz4">
             <objects>
@@ -313,7 +337,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hft-wg-GI2">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Hft-wg-GI2">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="596"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zNL-K3-lJN">
@@ -405,6 +429,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8M-Jn-QMu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2847.826086956522" y="114.50892857142857"/>
+        </scene>
+        <!--List Dishes Table View Controller-->
+        <scene sceneID="6nu-kZ-pIk">
+            <objects>
+                <tableViewController storyboardIdentifier="ListDishesTableViewController" id="b38-zd-kP0" customClass="ListDishesTableViewController" customModule="Yummie" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="OD9-3X-Def">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="b38-zd-kP0" id="7As-2w-mmR"/>
+                            <outlet property="delegate" destination="b38-zd-kP0" id="eCs-xn-hii"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uve-Br-ufg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3768" y="115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tOB-hY-axB">

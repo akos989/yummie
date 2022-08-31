@@ -44,8 +44,9 @@ class OnBoardingViewController: UIViewController {
             controller.modalPresentationStyle = .fullScreen
             controller.modalTransitionStyle = .flipHorizontal
             
-            present(controller, animated: true)
+            UserDefaults.standard.hasOnboarded = true
             
+            present(controller, animated: true)
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)

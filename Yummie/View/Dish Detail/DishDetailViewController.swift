@@ -5,6 +5,7 @@
 //  Created by Ákos Morvai on 2022. 08. 19..
 //
 
+import ProgressHUD
 import UIKit
 
 class DishDetailViewController: UIViewController {
@@ -36,5 +37,24 @@ class DishDetailViewController: UIViewController {
     }
     
     @IBAction func orderButtonTapped(_ sender: UIButton) {
+        guard let name = orderNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !name.isEmpty else {
+                  ProgressHUD.showError("Please enter your name")
+                  return
+              }
+        if let dish = dish,
+           let dishId = dish.id {
+            ProgressHUD.show("Placing Order...")
+            NetworkService.shared.placeOrder(dishId: dishId, name: name) { result in
+                switch result {
+                    case .success(_):
+                        ProgressHUD.showSuccess("Your order has been received.")
+                    case .failure(let error):
+                        ProgressHUD.showError(error.localizedDescription)
+                }
+            }
+        } else {
+            ProgressHUD.showError("Something went wrong")
+        }
     }
 }
