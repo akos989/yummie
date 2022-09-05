@@ -21,20 +21,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         ProgressHUD.show()
-        NetworkService.shared.fetchAllCategories { [weak self] result in
-            switch result {
-                case .success(let allDishes):
-                    self?.categories = allDishes.categories ?? []
-                    self?.popularDishes = allDishes.populars ?? []
-                    self?.specialDishes = allDishes.specials ?? []
-                    
-                    self?.categoryCollectionView.reloadData()
-                    self?.popularCollectionView.reloadData()
-                    self?.specialsCollectionView.reloadData()
-                    
-                    ProgressHUD.dismiss()
-                case .failure(let error):
-                    ProgressHUD.showError(error.localizedDescription)
+        
+        Task {
+            do {
+                let allDishes = try await NetworkService.shared.fetchAllCategories()
+                categories = allDishes.categories ?? []
+                popularDishes = allDishes.populars ?? []
+                specialDishes = allDishes.specials ?? []
+                ProgressHUD.dismiss()
+            } catch {
+                ProgressHUD.showError(error.localizedDescription)
             }
         }
         
